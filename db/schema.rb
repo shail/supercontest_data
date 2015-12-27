@@ -11,12 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151227190728) do
+ActiveRecord::Schema.define(version: 20151227191206) do
 
-  create_table "teams_tables", force: :cascade do |t|
+  create_table "team_standings", force: :cascade do |t|
+    t.integer "team_id", limit: 4,                null: false
+    t.integer "win",     limit: 4,                null: false
+    t.integer "loss",    limit: 4,                null: false
+    t.integer "tie",     limit: 4,                null: false
+    t.decimal "pts",               precision: 10, null: false
+  end
+
+  add_index "team_standings", ["team_id"], name: "fk_rails_11c6a329d4", using: :btree
+
+  create_table "teams", force: :cascade do |t|
     t.string "name", limit: 255
   end
 
-  add_index "teams_tables", ["name"], name: "index_teams_tables_on_name", using: :btree
+  add_index "teams", ["name"], name: "index_teams_on_name", using: :btree
 
+  add_foreign_key "team_standings", "teams"
 end
