@@ -2,6 +2,12 @@
 require 'mechanize'
 require 'nokogiri'
 require 'mysql2'
+require 'yaml'
+
+raise "Need to provide environment argument" if ARGV[0].nil?
+environment = ARGV[0]
+config = YAML::load_file("config/database.yml")[environment]
+client = Mysql2::Client.new(config)
 
 def collect_table_data(url)
   mechanize = Mechanize.new
