@@ -1,5 +1,7 @@
+# Get all the weekly pics and store in mysql
 require 'mechanize'
 require 'nokogiri'
+require 'mysql2'
 
 mechanize = Mechanize.new
 

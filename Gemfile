@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-require 'mechanize'
-require 'mysql2'
+gem 'mechanize'
+gem 'mysql2'
