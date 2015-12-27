@@ -22,8 +22,9 @@ def collect_table_data(url)
   picks_array
 end
 
+standings_data = collect_table_data("https://www.westgatedestinations.com/nevada/las-vegas/westgate-las-vegas-hotel-casino/casino/supercontest-standings")
+standings_data.shift
+
 picks_data = collect_table_data("https://www.westgatedestinations.com/nevada/las-vegas/westgate-las-vegas-hotel-casino/casino/supercontest-selections")
 picks_data = picks_data.select { |picks| picks.length == 6 }
-
-standings_data = collect_table_data("https://www.westgatedestinations.com/nevada/las-vegas/westgate-las-vegas-hotel-casino/casino/supercontest-standings")
-puts standings_data.inspect
+picks_data.shift
