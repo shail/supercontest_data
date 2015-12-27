@@ -1,0 +1,1 @@
+Analyzing westgage supercontest picks
