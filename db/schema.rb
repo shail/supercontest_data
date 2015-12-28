@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151227200919) do
+ActiveRecord::Schema.define(version: 20151228032700) do
 
   create_table "actual_weekly_picks", force: :cascade do |t|
     t.integer "week", limit: 4, null: false
@@ -29,22 +29,22 @@ ActiveRecord::Schema.define(version: 20151227200919) do
   add_index "contest_weekly_picks", ["team_id", "week"], name: "index_contest_weekly_picks_on_team_id_and_week", using: :btree
 
   create_table "contest_weekly_results", force: :cascade do |t|
-    t.integer "week",    limit: 4, null: false
-    t.integer "team_id", limit: 4, null: false
-    t.integer "win",     limit: 4, null: false
-    t.integer "loss",    limit: 4, null: false
-    t.integer "tie",     limit: 4, null: false
-    t.integer "pts",     limit: 4, null: false
+    t.integer "week",    limit: 4,                         null: false
+    t.integer "team_id", limit: 4,                         null: false
+    t.integer "win",     limit: 4,                         null: false
+    t.integer "loss",    limit: 4,                         null: false
+    t.integer "tie",     limit: 4,                         null: false
+    t.decimal "pts",               precision: 5, scale: 1, null: false
   end
 
   add_index "contest_weekly_results", ["team_id"], name: "fk_rails_85877a7a8f", using: :btree
 
   create_table "team_standings", force: :cascade do |t|
-    t.integer "team_id", limit: 4,                null: false
-    t.integer "win",     limit: 4,                null: false
-    t.integer "loss",    limit: 4,                null: false
-    t.integer "tie",     limit: 4,                null: false
-    t.decimal "pts",               precision: 10, null: false
+    t.integer "team_id", limit: 4,                         null: false
+    t.integer "win",     limit: 4,                         null: false
+    t.integer "loss",    limit: 4,                         null: false
+    t.integer "tie",     limit: 4,                         null: false
+    t.decimal "pts",               precision: 5, scale: 1, null: false
   end
 
   add_index "team_standings", ["team_id"], name: "fk_rails_11c6a329d4", using: :btree
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20151227200919) do
     t.string "name", limit: 255
   end
 
-  add_index "teams", ["name"], name: "index_teams_on_name", using: :btree
+  add_index "teams", ["name"], name: "index_teams_on_name", unique: true, using: :btree
 
   add_foreign_key "contest_weekly_picks", "teams"
   add_foreign_key "contest_weekly_results", "teams"
