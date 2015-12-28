@@ -3,6 +3,5 @@ class CreateTeamsTable < ActiveRecord::Migration
     create_table :teams do |t|
       t.string :name
     end
-    add_index :teams, :name
   end
 end
