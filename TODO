@@ -2,3 +2,6 @@
 - Timeout/retry mechanize get because takes a while/gets blocked
 - Contest weekly results should be unique across team_id and week
 - Port data collection to write to DB via API not raw SQL
+- Need to rescue bad requests if they don't have all the required params
+- Need to figure out best place to calculate points if somebody just enters in wins, losses, ties for team
+  standings
