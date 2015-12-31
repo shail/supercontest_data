@@ -1,11 +1,22 @@
 class TeamsController < ApplicationController
   def index
-    @teams = Team.all
-    render json: @teams
+    render json: Team.all
   end
 
   def show
-    @team = Team.find(params[:id])
-    render json: @team
+    render json: Team.find(params[:id])
+  end
+
+  def create
+    Team.create(team_params)
+  end
+
+  def update
+    Team.find(params[:id]).tap { |team| team.update!(team_params) }
+  end
+
+  private
+  def team_params
+    params.require(:team).permit(:name)
   end
 end
