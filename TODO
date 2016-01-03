@@ -1,4 +1,3 @@
-- Rename actual_weekly_picks to weekly_results
 - Timeout/retry mechanize get because takes a while/gets blocked
 - Contest weekly results should be unique across team_id and week
 - Port data collection to write to DB via API not raw SQL
