@@ -1,6 +1,9 @@
 class TeamStandingsController < ApplicationController
   def index
-    render json: TeamStanding.all
+#    @team_standings = TeamStanding.all
+#    @team_standings = @team_standings.team_id(params[:team_id]) if params[:team_id].present?
+#    render json: @team_standings
+     render json: TeamStanding.filter(params.slice(:team_id))
   end
 
   def show
@@ -17,17 +20,9 @@ class TeamStandingsController < ApplicationController
     render json: @team_standings
   end
 
-  def search
-    render json: TeamStanding.where(search_params)
-  end
-
   private
 
   def team_standings_params
     params.require(:team_standing).permit(:win, :loss, :tie, :pts, :team_id)
-  end
-
-  def search_params
-    params.permit(:team_id)
   end
 end
