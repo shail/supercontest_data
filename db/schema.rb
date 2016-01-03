@@ -11,14 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151228032700) do
-
-  create_table "actual_weekly_picks", force: :cascade do |t|
-    t.integer "week", limit: 4, null: false
-    t.integer "team", limit: 4, null: false
-  end
-
-  add_index "actual_weekly_picks", ["week"], name: "index_actual_weekly_picks_on_week", using: :btree
+ActiveRecord::Schema.define(version: 20160103054456) do
 
   create_table "contest_weekly_picks", force: :cascade do |t|
     t.integer "team_id", limit: 4, null: false
@@ -54,6 +47,13 @@ ActiveRecord::Schema.define(version: 20151228032700) do
   end
 
   add_index "teams", ["name"], name: "index_teams_on_name", unique: true, using: :btree
+
+  create_table "weekly_results", force: :cascade do |t|
+    t.integer "week", limit: 4, null: false
+    t.integer "team", limit: 4, null: false
+  end
+
+  add_index "weekly_results", ["week"], name: "index_weekly_results_on_week", using: :btree
 
   add_foreign_key "contest_weekly_picks", "teams"
   add_foreign_key "contest_weekly_results", "teams"
