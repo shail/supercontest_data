@@ -13,7 +13,7 @@ class ContestWeeklyResultsController < ApplicationController
 
   def update
     @contest_weekly_result = ContestWeeklyResult.find(params[:id])
-    @contest_weekly_result.tap { |team| team.update!(contest_weekly_result_params) }
+    @contest_weekly_result.tap { |contest_weekly_result| contest_weekly_result.update!(contest_weekly_result_params) }
     render json: @contest_weekly_result
   end
 

@@ -8,7 +8,7 @@ class TeamStandingsController < ApplicationController
   end
 
   def create
-    render json: Team.create(team_standings_params)
+    render json: TeamStanding.create(team_standings_params)
   end
 
   def update
