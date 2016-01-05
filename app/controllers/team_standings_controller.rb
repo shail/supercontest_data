@@ -1,9 +1,6 @@
 class TeamStandingsController < ApplicationController
   def index
-#    @team_standings = TeamStanding.all
-#    @team_standings = @team_standings.team_id(params[:team_id]) if params[:team_id].present?
-#    render json: @team_standings
-     render json: TeamStanding.filter(params.slice(:team_id))
+    render json: TeamStanding.filter(params.slice(:team_id))
   end
 
   def show
