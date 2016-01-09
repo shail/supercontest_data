@@ -1,6 +1,7 @@
 # Get all the weekly pics and standings to store in mysql
 require 'mechanize'
 require 'nokogiri'
+require 'httparty'
 require 'mysql2'
 require 'yaml'
 
@@ -43,6 +44,7 @@ standings_data.first.each do |standing|
   team = client.query("SELECT * FROM teams WHERE name=\"#{standing.first}\"")
 
   if team.first.nil?
+    response = HTTParty.get('http://localhost:3000/teams'
     client.query("INSERT INTO teams (name) values (\"#{standing.first}\")")
     team_id = client.last_id
   else

@@ -3,4 +3,3 @@
 - Need to rescue bad requests if they don't have all the required params
 - Need to figure out best place to calculate points if somebody just enters in wins, losses, ties for team
   standings
-- TEST
