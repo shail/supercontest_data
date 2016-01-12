@@ -5,3 +5,4 @@
   standings
 - Use scaffolding for generate controllers
 - Integration and unit tests
+- Caching
