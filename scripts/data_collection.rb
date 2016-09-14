@@ -1,13 +1,13 @@
 # Get all the weekly pics and standings to store in mysql
 require 'mechanize'
 require 'nokogiri'
-require 'httparty'
 require 'mysql2'
 require 'yaml'
 
 raise "Need to provide environment argument" if ARGV[0].nil?
 environment = ARGV[0]
 config = YAML::load_file("../config/database.yml")[environment]
+p config
 client = Mysql2::Client.new(config)
 @mechanize = Mechanize.new
 
@@ -19,8 +19,7 @@ def collect_table_data(url)
   if url.include?("supercontest-selection")
     week = page.search("//h1").first.children.first.text.match(/\d{1,}$/)[0].to_i
   else
-    week = (table[3].children[6].children.text.to_i + table[3].children[7].children.text.to_i +
-    table[3].children[8].children.text.to_i) / 5
+    week = table[1].children[1].children.text.match(/\d{1,}$/)[0].to_i
   end
 
   picks_array = []
@@ -41,11 +40,12 @@ standings_data = collect_table_data("https://www.westgatedestinations.com/nevada
 standings_data.first.shift
 puts "Inserting standings data"
 standings_data.first.each do |standing|
-  team = client.query("SELECT * FROM teams WHERE name=\"#{standing.first}\"")
+  standing.first.gsub!("\"", "\\\"")
+  standing.first.gsub!("'", "\\'")
+  team = client.query("SELECT * FROM teams WHERE name='#{standing.first}'")
 
   if team.first.nil?
-    response = HTTParty.get('http://localhost:3000/teams'
-    client.query("INSERT INTO teams (name) values (\"#{standing.first}\")")
+    client.query("INSERT INTO teams (name) values ('#{standing.first}')")
     team_id = client.last_id
   else
     team_id = team.first["id"]
@@ -64,12 +64,14 @@ picks_data[0] = picks_data.first.select { |picks| picks.length == 6 }
 picks_data.first.shift
 
 picks_data.first.each do |picks|
+  picks[0] = "EISENMAN'S TEAM" if picks.first == "EISEMAN'S TEAM"
+  picks.first.gsub!("\"", "\\\"")
+  picks.first.gsub!("'", "\\'")
   puts "SELECT * from teams where name=\"#{picks.first}\"".inspect
   team_id = client.query("SELECT * from teams where name=\"#{picks.first}\"").first["id"]
 
   picks.shift
   picks.each do |pick|
-puts "INSERT INTO contest_weekly_picks (team_id, week, team) values (#{team_id}, #{picks_data[1]}, #{pick})".inspect
-    client.query("INSERT INTO contest_weekly_picks (team_id, week, team) values (#{team_id}, #{picks_data[1]}, #{pick})")
+    client.query("INSERT INTO contest_weekly_picks (team_id, week, team) values (#{team_id}, #{picks_data[1]}, '#{pick}')")
   end
 end
