@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160103054456) do
+ActiveRecord::Schema.define(version: 20160915045729) do
 
   create_table "contest_weekly_picks", force: :cascade do |t|
-    t.integer "team_id", limit: 4, null: false
-    t.integer "week",    limit: 4, null: false
-    t.integer "team",    limit: 4, null: false
+    t.integer "team_id", limit: 4,   null: false
+    t.integer "week",    limit: 4,   null: false
+    t.string  "team",    limit: 255, null: false
   end
 
   add_index "contest_weekly_picks", ["team_id", "week"], name: "index_contest_weekly_picks_on_team_id_and_week", using: :btree
