@@ -71,6 +71,7 @@ if !skip.include?("picks")
     picks[0] = "EISENMAN'S TEAM" if picks.first == "EISEMAN'S TEAM"
     picks.first.gsub!("\"", "\\\"")
     picks.first.gsub!("'", "\\'")
+    picks[0] = "SMASH PLOW" if picks.first == "SNASH PLOW"
     team_id = client.query("SELECT * from teams where name=\"#{picks.first}\"").first["id"]
 
     picks.shift
